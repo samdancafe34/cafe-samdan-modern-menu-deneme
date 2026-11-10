@@ -1,9 +1,9 @@
 {
   "name": "cafe-samdan-menu",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "axios": "^1.6.0",
-    "csv-parse": "^5.5.3"
-  }
+  "description": "Cafe Şamdan online menü: Google E-Tablolar'dan beslenen, Vercel'de çalışan menü sitesi.",
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node test/run.js", "dev": "node dev.js" },
+  "dependencies": { "sharp": "^0.33.5" }
 }

@@ -1,1 +1,53 @@
-/* placeholder */
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Menü Kontrol</title>
+<style>
+:root{--bg:#F1F3F1;--surface:#fff;--ink:#18201E;--muted:#58645F;--line:#D8DEDA;--bad:#B3261E;--warn:#8A5A00;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#101514;--surface:#18201E;--ink:#EDF1EF;--muted:#A3B0AA;--line:#2B3733;--bad:#FF8A80;--warn:#F2C26B;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left))}
+main{max-width:760px;margin:0 auto}
+h1{font-size:24px;margin:24px 0 4px}h2{font-size:17px;margin:28px 0 8px}
+p{margin:4px 0;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+.hata{border-color:var(--bad)}.uyarı{border-color:var(--warn)}
+.where{font-weight:600}.lv{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.hata .lv{color:var(--bad)}.uyarı .lv{color:var(--warn)}
+ul{margin:6px 0;padding-inline-start:20px;columns:2;column-gap:24px}@media(max-width:560px){ul{columns:1}}
+details{margin:8px 0}summary{cursor:pointer;font-weight:600}
+a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+<h1>Menü kontrolü</h1>
+<p id="sum">Yükleniyor…</p>
+<div id="out"></div>
+<p><a href="/">Menüye dön</a></p>
+</main>
+<script>
+(function () {
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); };
+  var fmt = function (iso) { try { return new Date(iso).toLocaleString('tr-TR'); } catch (e) { return iso; } };
+  fetch('/api/menu?check=1', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    var m = d.meta || {}, c = m.counts || {}, out = '';
+    var src = m.source === 'sheet' ? 'E-Tablo (güncel)' : 'KAYITLI YEDEK (E-Tablo okunamadı)';
+    document.getElementById('sum').textContent = 'Kaynak: ' + src + ' · ' + fmt(m.generatedAt) + ' · ' + (c.products || 0) + ' ürün, ' + (c.categories || 0) + ' kategori' + (c.skipped ? ', ' + c.skipped + ' satır atlandı' : '') + ' · Fotoğraflar: ' + (m.photos || 'kapalı');
+    var iss = m.issues || [];
+    out += '<h2>Sorunlar (' + iss.length + ')</h2>';
+    if (!iss.length) out += '<p>Sorun yok.</p>';
+    iss.forEach(function (i) { out += '<div class="card ' + esc(i.level) + '"><span class="lv">' + esc(i.level) + '</span> <span class="where">' + esc(i.where) + '</span><br>' + esc(i.msg) + '</div>'; });
+    var L = m.lists || {};
+    [['noPrice', 'Fiyatı olmayanlar'], ['noNutri', 'Besin değeri olmayanlar'], ['noPhoto', 'Fotoğrafı olmayanlar']].forEach(function (x) {
+      var a = L[x[0]] || [];
+      out += '<details><summary>' + x[1] + ' (' + a.length + ')</summary><ul>' + a.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></details>';
+    });
+    document.getElementById('out').innerHTML = out;
+  }).catch(function () { document.getElementById('sum').textContent = 'Kontrol bilgisi alınamadı.'; });
+})();
+</script>
+</body>
+</html>

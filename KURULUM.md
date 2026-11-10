@@ -16,6 +16,7 @@ Google Drive "Menü Fotoğrafları" klasörü ──► api/photo (küçültür,
 
 - **Yazı, fiyat, besin değeri, kategori:** sadece E-Tablo'da değişir. GitHub'a girmen gerekmez. Değişiklik en geç birkaç dakikada sitede görünür.
 - **Fotoğraf:** Drive'daki klasöre koyarsın. Dosya adı ürün adıyla aynıysa site otomatik bulur.
+- **Menü akışı (müşteri ne görür):** Önce dil seçimi (TR / EN / AR), sonra kategori kartları, kategoriye girince ürünler açılır liste halinde. Her sayfada sol üstte geri oku var. Kartta kalori ve makrolar görünür (TR: P protein, K karbonhidrat, Y yağ; EN: P, C, F; AR: ب، ك، د). Kartın altında açıklamanın ilk satırı çıkar, sığmayan kısım "…" ile biter. Karta dokununca tam açıklama, alerjenler ve fotoğraf açılır. Fotoğrafa dokununca ekranı kaplar. Fotoğrafı olmayan üründe boş kutu gösterilmez. Arama kutusu kategoriler sayfasındadır. Arama doluyken geri oku önce aramayı siler.
 - **Kod değişikliği (tasarım vb.):** GitHub'daki dosyalar değişir, Vercel kendiliğinden yeniden yayınlar.
 - **Bir şey bozulursa:** E-Tablo okunamıyorsa site son kayıtlı menüyü gösterir. Hangi satırın neden alınmadığını `/kontrol` sayfasından görürsün.
 
@@ -53,7 +54,9 @@ Ekran adları zamanla değişebilir; menü yerleri farklıysa arama kutusunu kul
 4. Anahtarın ayarlarına gir, **API restrictions > Restrict key** seç, sadece **Google Drive API**'yi işaretle. **Application restrictions** için `None` kalsın (Vercel'in adresleri sabit değil).
 5. Anahtarı kimseyle paylaşma, sadece Vercel'e yapıştır.
 
-### 5. Kendi alan adın
+### 5. Kendi alan adın (şimdilik yapılmıyor, ileride istenirse)
+Bu adım zorunlu değil. Menü `...vercel.app` adresinde çalışmaya devam eder. Alan adı geçişi yapılacaksa önce `@cafesamdan.com.tr` e-postalarının kullanılıp kullanılmadığı öğrenilmeli.
+
 Vercel'de projenin **Settings > Domains** bölümüne `cafesamdan.com.tr` ve `www.cafesamdan.com.tr`'yi ekle. Vercel sana satıcıya iletilecek kayıtları (A ve CNAME) gösterir.
 - Satıcıya sadece bu iki kaydı değiştirmesini söyle. **MX kayıtlarına ve nameserver'a dokunmasın** (e-postan varsa kesilir).
 - **Geçişten önce** eski sitenin tam yedeğini al.
@@ -68,10 +71,11 @@ Vercel'de projenin **Settings > Domains** bölümüne `cafesamdan.com.tr` ve `ww
 | Ürünü geçici kaldırmak | "Gizli" sütununa `E` yaz. |
 | Tükendi göstermek | "Tükendi" sütununa `E` yaz. |
 | Fotoğraf eklemek | Drive klasörüne koy. Dosya adı = ürün adı (büyük/küçük harf ve Türkçe karakter fark etmez). Ad uymuyorsa dosya adını "Fotoğraf dosya adı" sütununa yaz. |
+| Alerjen yazmak | Ürünler > Alerjen sütununa şu adlardan yaz, birden fazlaysa virgülle ayır: gluten, süt, yumurta, kuruyemiş, yer fıstığı, susam, soya, balık, kereviz, hardal. Başka bir yazı "yok sayıldı" uyarısı verir (`/kontrol`). Kartı açınca açıklamanın altında görünür. |
 | Fotoğrafı değiştirmek | Drive'da dosyayı aynı adla yenisiyle değiştir. |
 | Sorun var mı bakmak | `adresin/kontrol` sayfası. |
 
-**Fotoğraf biçimi:** JPG veya PNG yükle. iPhone'un HEIC biçimi tarayıcılarda görünmez.
+**Fotoğraf biçimi:** Sadece JPG veya PNG yükle. iPhone fotoğrafları varsayılan olarak HEIC biçiminde kaydedilir. Site fotoğrafları küçültürken HEIC'i okuyamaz, o ürün fotoğrafsız görünür. iPhone'da Ayarlar > Kamera > Formatlar > "En Uyumlu" seçersen fotoğraflar JPG çekilir. Mevcut HEIC dosyalarını Drive'a koymadan önce JPG'ye çevir.
 **Beklenen gecikme:** Değişiklik 5-10 dakikada sitede görünür (Google'ın yayınlama gecikmesi + 5 dakikalık önbellek).
 
 ## E-Tablo kuralları (bozulmasın diye)

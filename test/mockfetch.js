@@ -32,10 +32,11 @@ async function install() {
     state.calls.push(url);
     if (url.indexOf('docs.google.com') >= 0) {
       if (state.fail) throw new Error('ağ hatası');
-      const m = { 2135674355: 'products', 1872347410: 'categories', 1025246748: 'settings' };
-      const k = Object.keys(m).find((g) => url.indexOf(g) >= 0);
-      if (state.failTabs[m[k]]) return resp('', false, 500);
-      return resp(state[m[k]]);
+      const cfg = require('../lib/config')();
+      const tab = url === cfg.productsUrl ? 'products' : url === cfg.categoriesUrl ? 'categories' : url === cfg.settingsUrl ? 'settings' : null;
+      if (!tab) return resp('', false, 404);
+      if (state.failTabs[tab]) return resp('', false, 500);
+      return resp(state[tab]);
     }
     if (url.indexOf('googleapis.com/drive/v3/files?') >= 0) {
       if (!state.drive) return resp('{"error":"x"}', false, 403);

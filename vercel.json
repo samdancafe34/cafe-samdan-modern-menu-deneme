@@ -1,11 +1,221 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/**/*.js", "use": "@vercel/node" },
-    { "src": "public/**/*", "use": "@vercel/static" }
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/kahvaltilar-breakfasts",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kahvaltilar-breakfasts/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/menemen-cesitleri-menemen-types",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/menemen-cesitleri-menemen-types/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/corbalar-soups",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/corbalar-soups/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tostlar-toasts",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tostlar-toasts/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/hamburgerler-hamburgers",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/hamburgerler-hamburgers/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ara-sicaklar-hot-appetizers",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ara-sicaklar-hot-appetizers/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/wraplar-durumler-wraps-rolls",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/wraplar-durumler-wraps-rolls/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gozlemeler-pancakes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gozlemeler-pancakes/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/makarnalar-pastas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/makarnalar-pastas/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ana-yemekler-main-courses",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ana-yemekler-main-courses/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kebaplar-kebab",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kebaplar-kebab/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/steakler-steaks",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/steakler-steaks/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pizza",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pizza/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/balik-fish",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/balik-fish/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/salatalar-salads",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/salatalar-salads/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pasta-tatli-cake-dessert",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pasta-tatli-cake-dessert/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sicak-icecekler-hot-drinks",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sicak-icecekler-hot-drinks/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/soguk-icecekler-cold-drinks",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/soguk-icecekler-cold-drinks/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/al-fakher-nargile-al-fakher-hookah",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/al-fakher-nargile-al-fakher-hookah/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nakhla-nargile-nakhla-hookah",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nakhla-nargile-nakhla-hookah/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/adalya-nargile",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/adalya-nargile/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nargile-ekstra",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/nargile-ekstra/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/marpuc",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/marpuc/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kafa-degisimi",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kafa-degisimi/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/internet",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/internet/",
+      "destination": "/index.html"
+    }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
   ]
 }
